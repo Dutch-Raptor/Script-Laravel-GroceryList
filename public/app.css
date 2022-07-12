@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-primary-50: #e3f2fe;
+    --color-primary-100: #bcddfc;
+    --color-primary-200: #92c9fb;
+    --color-primary-300: #67b4f9;
+    --color-primary-400: #48a3f8;
+    --color-primary-500: #2f94f6;
+    --color-primary-600: #2e86e8;
+    --color-primary-700: #2a74d4;
+    --color-primary-800: #2762c2;
+    --color-primary-900: #2144a3;
+    --color-secondary-50: #f0f4f8;
+    --color-secondary-100: #d9e2ec;
+    --color-secondary-200: #bcccdc;
+    --color-secondary-300: #9fb3c8;
+    --color-secondary-400: #829ab1;
+    --color-secondary-500: #627d98;
+    --color-secondary-600: #486581;
+    --color-secondary-700: #334e68;
+    --color-secondary-800: #243b53;
+    --color-secondary-900: #102a43;
+    --color-accent-50: #fae5f0;
+    --color-accent-100: #f5beda;
+    --color-accent-200: #f094c1;
+    --color-accent-300: #ed6aa8;
+    --color-accent-400: #eb4a93;
+    --color-accent-500: #eb2c7f;
+    --color-accent-600: #d92a7a;
+    --color-accent-700: #c22872;
+    --color-accent-800: #ac266c;
+    --color-accent-900: #852161;
+    --color-neutral-50: #ecf0f5;
+    --color-neutral-100: #d0dae2;
+    --color-neutral-200: #b4c1ce;
+    --color-neutral-300: #97a8b8;
+    --color-neutral-400: #8195a7;
+    --color-neutral-500: #6b8297;
+    --color-neutral-600: #5d7386;
+    --color-neutral-700: #4d5f6f;
+    --color-neutral-800: #3e4c59;
+    --color-neutral-900: #2c3741;
+
+    --color-scheme: dark;
+    --color-background: var(--color-neutral-900);
+    --color-background-secondary: var(--color-neutral-800);
+    --color-background-tertiary: var(--color-secondary-900);
+    --color-text-primary: var(--color-neutral-50);
+    --color-text-secondary: var(--color-neutral-100);
+    --color-text-tertiary: var(--color-neutral-200);
+    --color-text-on-primary: var(--color-neutral-50);
+    --color-text-on-accent: var(--color-neutral-900);
+    --color-primary: var(--color-primary-800);
+    --color-secondary: var(--color-primary-600);
+    --color-tertiary: var(--color-primary-500);
+    --color-accent: var(--color-accent-100);
+    --color-accent-focus: var(--color-accent-200);
+    --color-form-is-valid: var(--color-primary-400);
+    --color-form-is-invalid: var(--color-accent-200);
+    /* Navbar */
+    --color-navbar-background: var(--color-neutral-900);
+    --color-primary-active: var(--color-primary-400);
+    --box-shadow: 6px 6px 40px rgba(44, 55, 65, 0.2),
+        4px 4px 30px rgba(0, 0, 0, 0.25);
+
+    /* Alerts */
+    --color-alert-error: #bd3838;
+    --color-alert-error-text: var(--color-neutral-50);
+    --color-alert-success: var(--color-primary-800);
+    --color-alert-success-text: var(--color-neutral-50);
+    --color-alert-warning: rgb(255, 210, 125);
+    --color-alert-warning-text: var(--color-neutral-900);
+    --color-alert-info: var(--color-neutral-900);
+}
+
+html {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    color-scheme: dark;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-text-primary);
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.095rem;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+th {
+    text-align: start;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #888;
+}
+
+.productQuantity,
+.productPrice,
+.productTotalCost,
+.totalCost {
+    text-align: end;
+}
+
+.navbar {
+    background-color: var(--color-background);
+    box-shadow: var(--box-shadow);
+    color: #fff;
+    width: 100%;
+}
+
+.navbar__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.navbar__container__branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin: 0.5rem 0;
+}
+
+.navigation__list {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+    list-style: none;
+}
+
+.navigation__list__item__link {
+    text-decoration: none;
+    color: #9abbf0;
+    font-family: "Poppins", sans-serif;
+}
+
+.navigation__list__item__link:hover,
+.navigation__list__item__link:focus {
+    text-decoration: underline;
+    color: #7b94c0;
+}
+
+.navigation__list__item__link.active {
+    color: #f0f3f8;
+}
+
+.container {
+    width: 100%;
+
+    max-width: max(90%, 400px);
+    margin: 0 auto;
+    padding: 0.5rem;
+}
+
+.create-item-form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.grocery {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-background-secondary);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 0.5rem;
+}
+
+.grocery .grocery__name {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin: 0.5rem 0;
+}
+
+/* Create chip card styling */
+
+.chip-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: var(--color-background-tertiary);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.5rem;
+
+    text-align: center;
+
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    color: var(--color-text-primary);
+}
+
+.chip-card.active {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+}
+
+.chip-card:hover,
+.chip-card:focus {
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-primary);
+}
+
+.chip-card.active:hover,
+.chip-card.active:focus {
+    background-color: var(--color-accent-focus);
+    color: var(--color-text-on-accent);
+}
+
+.chip-card-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    gap: 0.5rem;
+}

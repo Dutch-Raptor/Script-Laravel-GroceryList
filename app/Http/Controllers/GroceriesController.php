@@ -4,30 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Grocery;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class GroceriesController extends Controller {
-    public function index(Request $request): Factory|View|Application {
+    public function index(Request $request): View {
 
         $activeCategoryId = $request->get('category') ?? null; // explicit null declaration for clarity
 
-        if ($activeCategoryId) {
-            $groceries = Grocery::with('category')->latest()->filter()->get();
-        } else {
-            $groceries = cache()->remember('groceries.all', now()->addMinutes(5), function () {
-                return Grocery::with('category')->latest()->get();
-            });
-        }
+        $groceries = Grocery::with('category')->latest()->filter()->get();
+
         $totalCost = round(
-            $groceries->map(function ($grocery) {
-                return $grocery->price * $grocery->quantity;
-            })
-                ->sum(),
+            $groceries->reduce(function ($carry, $grocery) {
+                return $carry + $grocery->price * $grocery->quantity;
+            }, 0),
             2
         );
 
@@ -49,7 +40,7 @@ class GroceriesController extends Controller {
         );
     }
 
-    public function create(): Factory|View|Application {
+    public function create(): View {
         $groceryCategories = cache()->remember('groceries.categories', now()->addMinutes(5), function () {
             return Category::all();
         });
@@ -71,22 +62,18 @@ class GroceriesController extends Controller {
             return redirect(route('groceries.create'))->withErrors($validator->errors())->withInput();
         }
 
-        $grocery = Grocery::create();
-
-        $grocery->name = $request->name;
-        $grocery->price = $request->price;
-        $grocery->quantity = $request->quantity;
-        $grocery->purchased = $request->purchased ?? false ?
-            true : false;
-        $grocery->category_id = $request->category_id;
-
-        $grocery->save();
-
-        cache()->forget('groceries.all');
+        $grocery = Grocery::create(
+            [
+                'name' => $request->name,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'category_id' => $request->grocery_category_id,
+            ]
+        );
         return redirect("/groceries");
     }
 
-    public function edit(Grocery $grocery): Factory|View|Application {
+    public function edit(Grocery $grocery): View {
         $groceryCategories = Category::all();
         return view("groceries.edit", [
             'grocery' => $grocery,
@@ -99,7 +86,8 @@ class GroceriesController extends Controller {
             'name' => 'required|string|min:2',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric|min:0',
-            'grocery_category_id' => 'required|integer',
+            'category_id' => 'required|integer',
+            'purchased' => 'sometimes|string',
         ]);
 
         if ($validator->fails()) {
@@ -108,21 +96,15 @@ class GroceriesController extends Controller {
             ]))->withErrors($validator->errors())->withInput();
         }
 
+        $grocery->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'purchased' => $request->purchased ?? false ?
+                true : false,
+            'category_id' => $request->category_id,
+        ]);
 
-
-        $grocery->name = $request->name;
-
-        $grocery->price = $request->price;
-
-        $grocery->quantity = $request->quantity;
-
-        $grocery->purchased = $request->purchased ?? false ?
-            true : false;
-
-        $grocery->category_id = $request->category_id;
-
-        $grocery->save();
-        cache()->forget('groceries.all');
         return redirect("/groceries");
     }
 

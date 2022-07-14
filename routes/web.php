@@ -24,8 +24,8 @@ Route::get("/groceries/create", [GroceriesController::class, "create"])->name("g
 
 Route::post("/groceries", [GroceriesController::class, "store"])->name("groceries.store");
 
-Route::get("/groceries/{id}/edit", [GroceriesController::class, "edit"])->name("groceries.edit");
+Route::get("/groceries/{grocery}/edit", [GroceriesController::class, "edit"])->name("groceries.edit");
 
-Route::put("/groceries/{id}", [GroceriesController::class, "update"])->name("groceries.update");
+Route::put("/groceries/{grocery}", [GroceriesController::class, "update"])->name("groceries.update");
 
-Route::delete("/groceries/{id}", [GroceriesController::class, "destroy"])->name("groceries.destroy");
+Route::delete("/groceries/{grocery}", [GroceriesController::class, "destroy"])->name("groceries.destroy");

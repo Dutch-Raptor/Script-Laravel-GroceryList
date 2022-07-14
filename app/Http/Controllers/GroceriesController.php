@@ -71,14 +71,14 @@ class GroceriesController extends Controller {
             return redirect(route('groceries.create'))->withErrors($validator->errors())->withInput();
         }
 
-        $grocery = new Grocery();
+        $grocery = Grocery::create();
 
         $grocery->name = $request->name;
         $grocery->price = $request->price;
         $grocery->quantity = $request->quantity;
         $grocery->purchased = $request->purchased ?? false ?
             true : false;
-        $grocery->category_id = $request->grocery_category_id;
+        $grocery->category_id = $request->category_id;
 
         $grocery->save();
 
@@ -86,8 +86,7 @@ class GroceriesController extends Controller {
         return redirect("/groceries");
     }
 
-    public function edit(int $id): Factory|View|Application {
-        $grocery = Grocery::with('category')->find($id);
+    public function edit(Grocery $grocery): Factory|View|Application {
         $groceryCategories = Category::all();
         return view("groceries.edit", [
             'grocery' => $grocery,
@@ -95,7 +94,7 @@ class GroceriesController extends Controller {
         ]);
     }
 
-    public function update(Request $request, int $id) {
+    public function update(Request $request, Grocery $grocery) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2',
             'price' => 'required|numeric',
@@ -104,15 +103,13 @@ class GroceriesController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            // dd($validator->errors());
             return redirect(route('groceries.edit', [
-                "id" => $id,
+                "grocery" => $grocery,
             ]))->withErrors($validator->errors())->withInput();
         }
 
 
 
-        $grocery = Grocery::find($id);
         $grocery->name = $request->name;
 
         $grocery->price = $request->price;
@@ -122,15 +119,14 @@ class GroceriesController extends Controller {
         $grocery->purchased = $request->purchased ?? false ?
             true : false;
 
-        $grocery->category_id = $request->grocery_category_id;
+        $grocery->category_id = $request->category_id;
 
         $grocery->save();
         cache()->forget('groceries.all');
         return redirect("/groceries");
     }
 
-    public function destroy(int $id) {
-        $grocery = Grocery::find($id);
+    public function destroy(Grocery $grocery) {
         $grocery->delete();
         cache()->forget('groceries.all');
         return redirect("/groceries");

@@ -50,8 +50,8 @@
                                     <td>${{ number_format($grocery->price * $grocery->quantity, 2) }}</td>
                                     <td>{{ $grocery->category->name }}</td>
                                     <td>
-                                        <a href="{{ route('groceries.edit', ['id' => $grocery->id]) }}">Edit</a>
-                                        <form action="{{ route('groceries.destroy', ['id' => $grocery->id]) }}"
+                                        <a href="{{ route('groceries.edit', ['grocery' => $grocery->id]) }}">Edit</a>
+                                        <form action="{{ route('groceries.destroy', ['grocery' => $grocery->id]) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')

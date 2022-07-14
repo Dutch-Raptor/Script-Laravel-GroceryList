@@ -13,8 +13,8 @@
         <form action="/groceries" method="post" class="create-item-form">
             @csrf
             <div class="form-group">
-                <label for="grocery_category_id">Grocery category</label>
-                <select name="grocery_category_id" id="grocery_category_id" class="form-control">
+                <label for="category_id">Grocery category</label>
+                <select name="category_id" id="category_id" class="form-control">
                     @foreach ($groceryCategories as $groceryCategory)
                         <option value="{{ $groceryCategory->id }}">{{ $groceryCategory->name }}</option>
                     @endforeach

@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Grocery extends Model {
     use HasFactory;
 
+    // add fillable property to allow mass assignment
+    protected $fillable = [
+        'name',
+        'price',
+        'quantity',
+        'category_id',
+        'purchased',
+    ];
+
     public function category() {
         return $this->belongsTo(Category::class);
     }

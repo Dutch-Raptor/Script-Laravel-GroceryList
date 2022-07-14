@@ -19,7 +19,8 @@
                     <div class="form-group">
                         {{-- Create a grocery category dropdown --}}
                         <label for="category_id">Grocery category</label>
-                        <select name="category_id" id="category_id" class="form-control">
+                        <select name="category_id" id="category_id" value="{{ $grocery->category_id }}"
+                            class="form-select">
                             @foreach ($groceryCategories as $groceryCategory)
                                 <option value="{{ $groceryCategory->id }}"
                                     {{ $grocery->category_id == $groceryCategory->id ? 'selected' : '' }}>
